@@ -1,19 +1,21 @@
 {
   "name": "Verus Miner Static Builder",
-  "image": "mcr.microsoft.com/devcontainers/universal:2",
-
-  "postCreateCommand": "apt-get update && apt-get install -y build-essential autoconf automake libtool pkg-config libcurl4-openssl-dev libjansson-dev libgomp1 && chmod +x ./autogen.sh ./build.sh || true && ./autogen.sh && ./configure --disable-cuda --disable-opencl CFLAGS='-O3 -march=native' LDFLAGS='-static' --enable-static --with-pic && make -j$(nproc) && strip ./ccminer || true && tar -czf ccminer-static-linux.tar.gz ./ccminer",
-
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": false,
+      "installOhMyZsh": false
+    }
+  },
+  "postCreateCommand": "apt-get update && apt-get install -y build-essential autoconf automake libtool pkg-config libcurl4-openssl-dev libjansson-dev libgomp1 && chmod +x autogen.sh build.sh configure.sh || true",
   "customizations": {
     "vscode": {
       "extensions": [
         "ms-vscode.cpptools",
         "twxs.cmake",
-        "yzhang.markdown-all-in-one",
-        "davidanson.vscode-markdownlint"
+        "yzhang.markdown-all-in-one"
       ]
     }
   },
-
-  "remoteUser": "vscode"
+  "remoteUser": "root"
 }
