@@ -3,11 +3,11 @@
   "image": "mcr.microsoft.com/devcontainers/universal:2",
   "features": {
     "ghcr.io/devcontainers/features/gcc:1": {},
-    "ghcr.io/devcontainers/features/cmake:1": {},
     "ghcr.io/devcontainers/features/make:1": {},
+    "ghcr.io/devcontainers/features/autoconf:1": {},
     "ghcr.io/devcontainers/features/pkg-config:1": {}
   },
-  "postCreateCommand": "apt-get update && apt-get install -y build-essential autoconf automake libtool pkg-config libcurl4-openssl-dev libjansson-dev libgomp1 && ./autogen.sh || true && ./configure --disable-opencl --disable-cuda --enable-static --with-pic LDFLAGS='-static' CFLAGS='-O3 -march=native' && make -j$(nproc)",
+  "postCreateCommand": "apt-get update && apt-get install -y autoconf automake libtool pkg-config libcurl4-openssl-dev libjansson-dev libgomp1 && chmod +x ./autogen.sh ./build.sh || true && ./autogen.sh && ./configure --disable-cuda --disable-opencl CFLAGS='-O3 -march=native' LDFLAGS='-static' --enable-static --with-pic && make -j$(nproc)",
   "customizations": {
     "vscode": {
       "extensions": [
